@@ -2,22 +2,34 @@
 import { API_URL } from "@/constants";
 import { Button, Input, Spacer } from "@nextui-org/react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
+    const [submitting, setSubmitting] = useState(false)
+    const router = useRouter()
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        const formData = new FormData(e.target);
-        let authData: any = {}
+        setSubmitting(true);
+        e.preventDefault();
+        
+        const formData = new FormData(e.target as HTMLFormElement);
+        let authData: any = {};
         authData.userEmail = formData.get("userEmail");
         authData.userPassword = formData.get("userPassword");
-        const { data } = await axios.post(`${API_URL}/auth/login`, {
-            ...authData
-        },{
-            withCredentials: true,
-        });
-        console.log(data);
+    
+        try {
+            const response = await axios.post(`${API_URL}/auth/login`, {
+                ...authData
+            }, {
+                withCredentials: true,
+            });
+            if (response.status === 201) router.push('/dashboard/');
+            setSubmitting(false);
+        } catch (e) {
+            setSubmitting(false);
+        }
         return;
-    }
+    };
     return (
         <form className="flex flex-col items-center justify-center bg-red-600 p-6 " onSubmit={handleSubmit}>
             <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
@@ -46,6 +58,7 @@ export default function LoginPage() {
                     size="lg"
                     className="w-full"
                     type="submit"
+                    disabled={submitting}
                 >
                     Iniciar sesión
                 </Button>
