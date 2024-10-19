@@ -23,7 +23,7 @@ export default function LoginPage() {
             }, {
                 withCredentials: true,
             });
-            if (response.status === 201) router.push('/dashboard/');
+            if (response.status === 201) router.push('/dashboard');
             setSubmitting(false);
         } catch (e) {
             setSubmitting(false);
