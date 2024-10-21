@@ -9,6 +9,7 @@ export default function SelectLocation({ locations, store }: { locations: Locati
         <Select placeholder="Selecciona una tienda" label="Tienda" classNames={{
             mainWrapper: "hover:ring-2 ring-red-300 rounded-xl transition-all"
         }}
+        // Cambios hechos
         selectedKeys={store ? store : "0"}
             onChange={((e) =>{
                 if (e.target.value === "0" || e.target.value === ""){
