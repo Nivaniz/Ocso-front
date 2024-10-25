@@ -5,6 +5,7 @@ import { Location } from "@/entities";
 import SelectLocation from "./_components/SelectLocations";
 import LocationCard from "./_components/LocationCard";
 import FormNewLocation from "./_components/FormNewLocation";
+import DeleteLocationButton from "./_components/DeleteLocationButton";
 
 const LocationsPage = async ({searchParams} : {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -37,7 +38,10 @@ const LocationsPage = async ({searchParams} : {
                 <div className="w-8/12">
                     <LocationCard store={searchParams.store}/>
                     </div>  
-                    <FormNewLocation/>
+                <div className="w-6/12">
+                    <FormNewLocation store={searchParams.store}/>
+                </div>
+                    <DeleteLocationButton store={searchParams.store} />
             </div>
             
         </div>
