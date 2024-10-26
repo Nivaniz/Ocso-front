@@ -5,37 +5,53 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
-    const [submitting, setSubmitting] = useState(false)
-    const router = useRouter()
+    const [submitting, setSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(""); // To store any login errors
+    const router = useRouter();
+
     const handleSubmit = async (e: any) => {
-        setSubmitting(true);
         e.preventDefault();
-        
+        setSubmitting(true);
+        setErrorMessage(""); // Clear any previous error message
+
         const formData = new FormData(e.target as HTMLFormElement);
-        let authData: any = {};
-        authData.userEmail = formData.get("userEmail");
-        authData.userPassword = formData.get("userPassword");
-    
+        const authData = {
+            userEmail: formData.get("userEmail"),
+            userPassword: formData.get("userPassword"),
+        };
+
         try {
             const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json" // Ensuring the correct Content-Type
+                },
                 body: JSON.stringify(authData),
                 credentials: 'include',
             });
-            if (response.status === 201) router.push('/dashboard');
-            setSubmitting(false);
-        } catch (e) {
+
+            if (response.status === 201) {
+                router.push('/dashboard');
+            } else {
+                const errorResponse = await response.json();
+                setErrorMessage(errorResponse.message || "Login failed. Please check your credentials.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setErrorMessage("An error occurred. Please try again.");
+        } finally {
             setSubmitting(false);
         }
-        return;
     };
+
     return (
-        <form className="flex flex-col items-center justify-center bg-red-600 p-6 " onSubmit={handleSubmit}>
+        <form className="flex flex-col items-center justify-center bg-red-600 p-6" onSubmit={handleSubmit}>
             <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
                 <h2 className="mb-4 text-center text-red-600">Inicia sesión con nosotros</h2>
                 <p className="mb-6 text-center text-gray-600">
                     Accede a todas nuestras funciones exclusivas.
                 </p>
+                {errorMessage && <p className="mb-4 text-center text-red-600">{errorMessage}</p>}
                 <Input
                     placeholder="Correo electrónico"
                     fullWidth
@@ -43,6 +59,7 @@ export default function LoginPage() {
                     color="primary"
                     type="email"
                     name="userEmail"
+                    required
                 />
                 <Input
                     placeholder="Contraseña"
@@ -51,6 +68,7 @@ export default function LoginPage() {
                     color="primary"
                     type="password"
                     name="userPassword"
+                    required
                 />
                 <Button
                     color="primary"
@@ -59,7 +77,7 @@ export default function LoginPage() {
                     type="submit"
                     disabled={submitting}
                 >
-                    Iniciar sesión
+                    {submitting ? "Iniciando sesión..." : "Iniciar sesión"}
                 </Button>
                 <Spacer y={1} />
                 <p className="text-center text-gray-600 text-sm">
