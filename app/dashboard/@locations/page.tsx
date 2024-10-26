@@ -1,6 +1,4 @@
-import { API_URL, TOKEN_NAME } from "@/constants";
-import axios from "axios";
-import { cookies } from "next/headers";
+import { API_URL } from "@/constants";
 import { Location } from "@/entities";
 import SelectLocation from "./_components/SelectLocations";
 import LocationCard from "./_components/LocationCard";
@@ -11,12 +9,16 @@ import { authHeaders} from "@/helpers/authHeaders";
 const LocationsPage = async ({searchParams} : {
     searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-    let {data} = await axios.get<Location[]>(`${API_URL}/locations`, {
+    const response = await fetch(`${API_URL}/locations`, {
         headers: {
             ...authHeaders()
+        },
+        next: {
+            tags: ["dashboard:locations"]
         }
-    });
-
+    },
+    );
+    let data: Location[] = await response.json()
     data = [
         {
             locationId: 0,
