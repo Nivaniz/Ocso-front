@@ -18,7 +18,7 @@ export default async function ManagerCards() {
     return data?.map((manager: Manager) => {
       return (
         <Link href={{pathname : `/dashboard/managers/${manager.managerId}`}}>
-          <Card className="mx-10 my-10">
+          <Card className="mx-10 my-10 hover:scale-110 hover:bg-red-200">
                 <CardHeader>
                     <p className="w-full">Nombre: <b>{manager.managerFullName}</b></p>
                 </CardHeader>
