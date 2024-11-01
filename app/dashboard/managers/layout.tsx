@@ -7,7 +7,7 @@ export default function LayoutManagers({children}: {children: ReactNode}) {
         <div className="w-4/12 max--h-[90vh] h-[90vh] overflow-hidden overflow-y-auto">
             <ManagerCards/>
         </div>
-        <div>
+        <div className="w-7/12">
             {children}
         </div>
         </>
