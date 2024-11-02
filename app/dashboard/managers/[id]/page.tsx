@@ -4,6 +4,7 @@ import { authHeaders } from "@/helpers/authHeaders";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import ManagerCard from "./_components/ManagerCard";
 import DeleteManagerButton from "./_components/DeleteManagerButton";
+import FormUpdateManager from "./_components/FormUpdateManager";
 
 export default async function ManagerPage({
     params,
@@ -26,6 +27,7 @@ export default async function ManagerPage({
             <ManagerCard manager={data}></ManagerCard>
             <div className="bg-white shadow-medium rounded-md px-10 py-2">
                 <DeleteManagerButton managerId={data.managerId} />
+                <FormUpdateManager manager={data} />
             </div>
         </div> 
     )
