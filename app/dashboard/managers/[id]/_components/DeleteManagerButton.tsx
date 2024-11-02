@@ -10,7 +10,7 @@ export default function DeleteManagerButton({
     const deleteByManagerId = deleteManager.bind(null, managerId);
     return (
         <form action={deleteByManagerId}>
-            <Button type="submit">
+            <Button type="submit" color="danger">
                 <LuTrash size="20" />
             </Button>
         </form>
