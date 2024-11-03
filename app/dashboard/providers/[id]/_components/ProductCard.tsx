@@ -11,7 +11,5 @@ export default function ProductCard ({product}: {product: Product}) {
                 <p>Precio del producto: <b>{product.price}</b></p>
             </CardBody>
         </Card>
-        
-
     )
 }
