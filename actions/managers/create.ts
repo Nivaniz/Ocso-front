@@ -9,7 +9,7 @@ export default async function createManager(formData: FormData){
     for (const key of formData.keys()){
         manager[key] = formData.get(key);       
     }
-    const response = await fetch(`${API_URL}/managers}`, {
+    const response = await fetch(`${API_URL}/managers`, {
         method: "POST",
         body: JSON.stringify(manager),
         headers: {
