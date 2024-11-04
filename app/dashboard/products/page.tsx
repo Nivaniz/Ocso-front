@@ -15,8 +15,11 @@ const ProductsPage = async () => {
     const products: Product[] = await response.json();
 
     return (
-        <div className="flex flex-wrap gap-6">
-            <FilteredCards products={products}/>
+        <div className="h-[90vh] w-full">
+            <div className="w-4/12">
+                <FilteredCards products={products}/>
+            </div>
+            
         </div>
     );
 };
