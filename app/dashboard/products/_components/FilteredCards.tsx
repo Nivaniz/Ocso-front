@@ -10,6 +10,7 @@ import ProviderCard from "../../providers/_components/ProviderCard";
 export default function FilteredCards({ products, providers }: { products: Product[], providers: Provider[] }) {
     const [filtered, setFiltered] = useState<string>("");
     const [provider, setProvider] = useState<string>();
+    const [show, setShow] = useState(false);
     const [productList, setProductList] = useState<Product[]>(products);
 
     useEffect(() => {
@@ -19,6 +20,7 @@ export default function FilteredCards({ products, providers }: { products: Produ
             } else return false;
         });
         setProductList(filteredProducts);
+        setShow(true);
     }, [filtered, provider]);
 
     return (
@@ -36,7 +38,7 @@ export default function FilteredCards({ products, providers }: { products: Produ
                 onChange={(e) => setFiltered(e.target.value)}
                 label="Nombre del producto"
             />
-            {productList.map((product) => (
+            {show && productList.map((product) => (
                 <Link className="hover:scale-110 transition-transform" key={product.productId} href={`/dashboard/products/${product.productId}`}>
                     <ProductCard product={product} />
                 </Link>
