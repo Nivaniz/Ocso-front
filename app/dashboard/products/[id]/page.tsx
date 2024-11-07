@@ -3,6 +3,7 @@ import { authHeaders } from "@/helpers/authHeaders";
 import ProductCard from "../_components/ProductCard";
 import { Product, Provider } from "@/entities";
 import UpdateProduct from "./_components/UpdateProduct";
+import DeleteProduct from "./_components/DeleteProduct";
 
 export default async function ProductPage({params} : {params : {
     id: string;
@@ -26,10 +27,17 @@ export default async function ProductPage({params} : {params : {
 
     return (
         <div className="w-full">
-            <h1>{product.productName}</h1>
-            <h1>{product.price}</h1>
-            <h1>{product.countSeal}</h1>
+            <div className="bg-orange-500">
+                <h1 className="w-full font-bold text-white text-center text-2xl py-2">Nombre del producto: {product.productName}</h1>
+                <h1 className="text-xl font-bold text-white text-center">Precio: {product.price}</h1>
+                <h1 className="text-md font-bold text-white text-center py-2">Cantidad de Sellos: {product.countSeal}</h1>
+            </div>
+            
             <UpdateProduct product={product} providers={providers} />
+            <div className="pl-10">
+                <DeleteProduct productId={product.productId} />
+            </div>
+            
         </div>
 
     )
