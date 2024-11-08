@@ -11,11 +11,11 @@ const EmployeesPage = async () => {
     const employees: Employee[] = await response.json();
 
     return (
-        <>
+        <div className="flex flex-wrap flex-grow-0 h-[40vh] gap-4 overflow-y-auto p-10">
             {employees.map((employee: Employee) => {
                 return <EmployeeCard key={employee.employeeId} employee={employee} />
             })}
-        </>
+        </div>
     )
 }
 
