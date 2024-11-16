@@ -2,7 +2,7 @@
 
 import { Employee, Location } from "@/entities";
 import EmployeeCard from "../../_components/EmployeeCard";
-import CreateEmployee from "./CreateEmployee";
+import CreateEmployee from "./CreateEmployee.tsx";
 import FormCreateEmployee from "./FormCreateEmployee";
 import { useState } from "react";
 import { Select, SelectItem } from "@nextui-org/react";
