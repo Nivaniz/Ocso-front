@@ -1,5 +1,6 @@
 import { Employee } from "@/entities";
 import Link from "next/link";
+import DeleteEmployee from "./DeleteEmployee";
 
 export default function EmployeeDataCard({employee} : {employee: Employee}){
     return( 
@@ -12,7 +13,7 @@ export default function EmployeeDataCard({employee} : {employee: Employee}){
                 }}}>
                     <h1 className="text-xl"> {employee.location?.locationName } </h1>
                 </Link>
-                
+                <DeleteEmployee employeeId={employee.employeeId} />
         </div>
     )
 }
