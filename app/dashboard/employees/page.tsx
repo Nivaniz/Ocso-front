@@ -2,6 +2,8 @@ import { API_URL } from "@/constants";
 import { Employee } from "@/entities";
 import { authHeaders } from "@/helpers/authHeaders";
 import EmployeeCard from "./_components/EmployeeCard";
+import CreateEmployee from "./[id]/_components/CreateEmployee";
+import FormCreateEmployee from "./[id]/_components/FormCreateEmployee";
 
 const EmployeesPage = async () => {
     const response = await fetch(`${API_URL}/employees`, {
@@ -15,6 +17,11 @@ const EmployeesPage = async () => {
             {employees.map((employee: Employee) => {
                 return <EmployeeCard key={employee.employeeId} employee={employee} />
             })}
+            <div className="absolute bottom-10 right-10">
+                <CreateEmployee>
+                    <FormCreateEmployee />
+                </CreateEmployee>
+            </div>
         </div>
     )
 }
