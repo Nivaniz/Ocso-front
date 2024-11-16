@@ -1,14 +1,50 @@
 'use client'
 
-import registerEmployee from "@/actions/users/register-employee"
-import { Input } from "@nextui-org/react"
+import registerEmployee from "@/actions/users/register-employee";
+import { Employee } from "@/entities";
+import { Button, Input } from "@nextui-org/react";
+import { generate } from "generate-password";
+import { useState } from "react";
+import { LuEye } from "react-icons/lu";
 
-export default function FormCreateUserEmployee({employeeId}: {employeeId: string}){
-    const registerEmployeeById = registerEmployee.bind(null, employeeId)
+export default function FormCreateUserEmployee({ employee }: { employee: Employee }) {
+    const [password, setPassword] = useState<string>("");
+    const [visible, setVisible] = useState<boolean>(false);
+
+    const { employeeId } = employee;
+    const registerEmployeeById = registerEmployee.bind(null, employeeId);
+
     return (
-        <form action={registerEmployeeById}>
-            <Input name="userEmail" label="Correo de cuenta"/>
-            <Input type="password" name="userPassword" label="contraseña"/>
+        <form action={registerEmployeeById} className="py-10 flex flex-col gap-2">
+            <h1 className="text-white font-bold text-center">Crear Usuario</h1>
+            <Input name="userEmail" label="Correo de cuenta" />
+            <Input
+                value={password}
+                type={visible ? "text" : "password"}
+                name="userPassword"
+                label="Contraseña"
+                endContent={
+                    <Button
+                        type="button"
+                        onClick={() => setVisible(!visible)}
+                    >
+                        <LuEye />
+                    </Button>
+                }
+            />
+            <Button
+                color="danger"
+                onPress={() => {
+                    setPassword(generate({
+                        length: 10
+                    }));
+                }}
+            >
+                Generar Contraseña
+            </Button>
+            <Button type="submit">
+                Crear Usuario
+            </Button>
         </form>
-    )
+    );
 }

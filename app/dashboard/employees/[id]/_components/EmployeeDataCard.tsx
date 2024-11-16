@@ -6,7 +6,7 @@ import FormCreateUserEmployee from "./FormCreateUser";
 import { LuUser } from "react-icons/lu";
 import { ReactNode } from "react";
 
-export default function EmployeeDataCard({employee, children} : {employee: Employee, children: ReactNode}){
+export default function EmployeeDataCard({employee} : {employee: Employee}){
     return( 
         <div className="flex flex-row items-center gap-2 bg-white rounded-md flex-grow-0 h-fit px-4 m-2 py-2 border-2 border-orange-400">
                 <h1 className="font-bold text-xl"> { employee.employeeName + " " + employee.employeeLastName + " |"}  </h1>
@@ -19,7 +19,13 @@ export default function EmployeeDataCard({employee, children} : {employee: Emplo
                 </Link>
                 <DeleteEmployee employeeId={employee.employeeId}/>
                 <div>
-                    {children}
+                    <CreateUser icon={<LuUser size="20"/>}>
+                    {
+                        !employee.user && (
+                            <FormCreateUserEmployee employee={employee} />
+                        )
+                    }
+                    </CreateUser>
                 </div>
         </div>
     )
