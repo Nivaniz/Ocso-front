@@ -9,11 +9,19 @@ export default async function createManager(formData: FormData){
     for (const key of formData.keys()){
         manager[key] = formData.get(key);       
     }
+    manager.managerSalary = +manager.managerSalary
+    if (manager.location) {
+        manager.locations = +manager.location
+    } else{
+        delete manager.location
+    }
+
     const response = await fetch(`${API_URL}/managers`, {
         method: "POST",
         body: JSON.stringify(manager),
         headers: {
             ...authHeaders(),
+            'content-type': 'application/json'
         },
     })
     if(response.status === 201) revalidateTag("dashboard:managers")
