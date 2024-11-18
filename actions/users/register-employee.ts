@@ -16,5 +16,4 @@ export default async function registerEmployee(employeeId: string, formData: For
         },
         body: JSON.stringify(data)
     })
-    console.log(await response.json());
 }
