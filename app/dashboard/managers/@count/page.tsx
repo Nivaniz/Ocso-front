@@ -1,9 +1,12 @@
 import { API_URL } from "@/constants";
 import { Manager } from "@/entities";
 import { authHeaders } from "@/helpers/authHeaders";
+import { getUserRoles } from "@/helpers/decodeToken";
 import { Card } from "@nextui-org/react";
 
 export default async function CountManagersPage(){
+    const userRole = getUserRoles()
+    if (userRole[0] !== "Admin") return null
     const response = await fetch(`${API_URL}/managers`, {
         headers: {
             ...authHeaders()

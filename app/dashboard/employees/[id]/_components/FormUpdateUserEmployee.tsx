@@ -21,6 +21,7 @@ export default function FormUpdateUserEmployee({ user }: { user: User }) {
             <Input defaultValue={user.userEmail} name="userEmail" label="Correo de cuenta" />
             <Input
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type={visible ? "text" : "password"}
                 name="userPassword"
                 label="Contraseña"

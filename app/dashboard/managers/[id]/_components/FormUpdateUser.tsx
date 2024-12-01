@@ -16,11 +16,12 @@ export default function FormUpdateUser({ user }: { user: User }) {
     const updateUserById = updateUser.bind(null, userId);
 
     return (
-        <form action={updateUserById} className="py-10 flex flex-col gap-2">
+        <form action={updateUserById} className="py-1s0 flex flex-col gap-2">
             <h1 className="text-white font-bold text-center">Actualizar Usuario</h1>
             <Input defaultValue={user.userEmail} name="userEmail" label="Correo de cuenta" />
             <Input
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type={visible ? "text" : "password"}
                 name="userPassword"
                 label="Contraseña"

@@ -20,6 +20,7 @@ export default function FormCreateUserEmployee({ employee }: { employee: Employe
             <Input name="userEmail" label="Correo de cuenta" />
             <Input
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type={visible ? "text" : "password"}
                 name="userPassword"
                 label="Contraseña"

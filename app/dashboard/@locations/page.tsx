@@ -7,10 +7,12 @@ import DeleteLocationButton from "./_components/DeleteLocationButton";
 import { authHeaders} from "@/helpers/authHeaders";
 import UpdateLocation from "./_components/UpdateLocation";
 import FormUpdateLocation from "./_components/FormUpdateLocation";
+import { getUserRoles } from "@/helpers/decodeToken";
 
 const LocationsPage = async ({searchParams} : {
     searchParams: { [key: string]: string | string[] | undefined };
 }) => {
+    const userRole = getUserRoles()
     const response = await fetch(`${API_URL}/locations`, {
         headers: {
             ...authHeaders()
@@ -44,12 +46,14 @@ const LocationsPage = async ({searchParams} : {
                 <div className="w-6/12">
                     <FormNewLocation store={searchParams.store}/>
                 </div>
-                <div className="flex flex-row flex-grow-0 gap-10 items-center">
-                <DeleteLocationButton store={searchParams.store} />
-                    <UpdateLocation store={searchParams.store}>
-                        <FormUpdateLocation store={searchParams.store} />
-                    </UpdateLocation>
-                </div>
+                {userRole[0] === "Admin" && (
+                    <div className="flex flex-row flex-grow-0 gap-10 items-center">
+                    <DeleteLocationButton store={searchParams.store} />
+                        <UpdateLocation store={searchParams.store}>
+                            <FormUpdateLocation store={searchParams.store} />
+                        </UpdateLocation>
+                    </div>
+                )}
             </div>
             
         </div>

@@ -1,6 +1,7 @@
 import { API_URL} from "@/constants";
 import { Employee } from "@/entities";
 import { authHeaders } from "@/helpers/authHeaders";
+import { getUserRoles } from "@/helpers/decodeToken";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 
 export default async function EmployeesLocation({
@@ -8,6 +9,8 @@ export default async function EmployeesLocation({
 }: {
   store: string | string[] | undefined;
 }) {
+  const userRole = getUserRoles()
+  if (userRole[0] === "Employee") return null
   if (!store) return "No hay empleados";
   const response = await fetch(`${API_URL}/employees/location/${store}`, {
       method: "GET",

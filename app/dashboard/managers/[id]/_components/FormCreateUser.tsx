@@ -21,6 +21,7 @@ export default function FormCreateUserManager({ manager }: { manager: Manager })
             <Input name="userEmail" label="Correo de cuenta" />
             <Input
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type={visible ? "text" : "password"}
                 name="userPassword"
                 label="Contraseña"

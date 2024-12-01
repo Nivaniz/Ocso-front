@@ -8,7 +8,7 @@ import FormCreateUserManager from "./FormCreateUser";
 
 export default function ManagerCard({manager}: {manager: Manager}){
     return (
-        <Card className="mx-20 py-3 text-center">
+        <Card className="mx-20 py-3 text-center w-[500px]">
                 <CardHeader>
                     <p className="w-full"><b className="text-3xl">{manager.managerFullName}</b></p>
                     {

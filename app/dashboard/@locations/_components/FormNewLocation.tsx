@@ -4,8 +4,11 @@ import { API_URL } from "@/constants";
 import SelectManager from "./SelectManager";
 import { authHeaders } from "@/helpers/authHeaders";
 import { Location, Manager } from "@/entities";
+import { getUserRoles } from "@/helpers/decodeToken";
 
 export default async function FormNewLocation({store}: {store: string | string[] | undefined}){
+    const userRole = getUserRoles()
+    if (userRole[0] !== "Admin") return null
     if (store) return null;
     const responseManagers = await fetch(`${API_URL}/managers`, {
         headers: {

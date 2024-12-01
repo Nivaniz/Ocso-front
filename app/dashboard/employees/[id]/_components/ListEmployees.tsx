@@ -2,8 +2,6 @@
 
 import { Employee, Location } from "@/entities";
 import EmployeeCard from "../../_components/EmployeeCard";
-import CreateEmployee from "./CreateEmployee.tsx";
-import FormCreateEmployee from "./FormCreateEmployee";
 import { useState } from "react";
 import { Select, SelectItem } from "@nextui-org/react";
 
@@ -16,7 +14,7 @@ export default function ListEmployees({ employees, locations }: { employees: Emp
         setFilter(e.target.value);
     }}>
         {locations.map((location) => (
-            <SelectItem key={location.locationId}>
+            <SelectItem key={location.locationId} value={location.locationId}>
                 {location.locationName}
             </SelectItem>
         ))}
@@ -26,7 +24,7 @@ export default function ListEmployees({ employees, locations }: { employees: Emp
             if (filter === "") return true;
             return String(employee.location?.locationId) === filter;
         }).map((employee: Employee) => (
-            <EmployeeCard key={employee.employeeId} employee={employee} />
+            <EmployeeCard key={employee.employeeId} employee={employee} full={false} updateButton={true} deleteButton={false}/>
         ))}
     </div>
 </div>

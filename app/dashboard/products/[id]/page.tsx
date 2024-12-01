@@ -4,10 +4,12 @@ import ProductCard from "../_components/ProductCard";
 import { Product, Provider } from "@/entities";
 import UpdateProduct from "./_components/UpdateProduct";
 import DeleteProduct from "./_components/DeleteProduct";
+import { getUserRoles } from "@/helpers/decodeToken";
 
 export default async function ProductPage({params} : {params : {
     id: string;
 }}) {
+    const userRole = getUserRoles()
     const responseProduct = await fetch(`${API_URL}/products/${params.id}`,{
         headers: {
             ...authHeaders(),
@@ -34,9 +36,11 @@ export default async function ProductPage({params} : {params : {
             </div>
             
             <UpdateProduct product={product} providers={providers} />
-            <div className="pl-10">
-                <DeleteProduct productId={product.productId} />
-            </div>
+            {userRole[0] !== "Employee" && (
+                <div className="pl-10">
+                    <DeleteProduct productId={product.productId} />
+                </div>
+            )}
             
         </div>
 
